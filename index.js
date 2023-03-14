@@ -35,6 +35,16 @@ const notebookList = [
   'waifu_diffusion',
   'waifuanything',
 ];
+const featureList = [
+  'gdrive-output'
+];
+const tunnelList = [
+  'gradio', 'ngrok', 'cloudflared', 'localhostrun', 'remotemoe'
+];
+
+const countDataTable = document.getElementById("count-table");
+const countFeatureTable = document.getElementById("feature-count-table");
+const countTunnelTable = document.getElementById("tunnel-count-table");
 
 async function getCount(key) {
   const response = await fetch(`https://api.countapi.xyz/get/${namespace}/${key}`);
@@ -42,6 +52,38 @@ async function getCount(key) {
 }
 
 let total = 0;
+
+notebookList.forEach(value => { 
+  let tr = document.createElement('tr');
+  
+  let tdName = document.createElement('td');
+  tdName.innerHTML = value;
+
+  let tdCount = document.createElement('td');
+  tdCount.innerHTML = "0";
+  tdCount.id = value;
+
+  tr.appendChild(tdName);
+  tr.appendChild(tdCount);
+
+  countDataTable.appendChild(tr);
+});
+
+tunnelList.forEach(value => {
+  let tr = document.createElement('tr');
+
+  let tdName = document.createElement('td');
+  tdName.innerHTML = value;
+
+  let tdCount = document.createElement('td');
+  tdCount.innerHTML = "0";
+  tdCount.id = value;
+
+  tr.appendChild(tdName);
+  tr.appendChild(tdCount);
+
+  countTunnelTable.appendChild(tr);
+});
 
 notebookList.forEach(value => {
   const countSpan = document.getElementById(value);
@@ -51,20 +93,35 @@ notebookList.forEach(value => {
     total += data.value;
     totalSpan.innerHTML = total || 0;
 
-    sortTable(1);
+    sortTable(countDataTable,1);
+  });
+});
+
+tunnelList.forEach(value => {
+  const countSpan = document.getElementById(value);
+  getCount(`tunnel-${value}`).then(data => {
+    countSpan.innerHTML = data.value || 0;
+    sortTable(countTunnelTable, 1);
+  });
+});
+
+featureList.forEach(value => { 
+  const countSpan = document.getElementById(value);
+  getCount(value).then(data => { 
+    countSpan.innerHTML = data.value || 0;
   });
 });
 
 // 0 = desc
 // 1 = asc
-function sortTable(sort = 0) {
-  let table = document.getElementById("count-table");
+// thanks chatgpt lmao
+function sortTable(table, sort = 0) {
   let rows = Array.from(table.getElementsByTagName("tr"));
-  let header = rows.shift(); // Remove the header row from the array
+  let header = rows.shift();
 
   rows.sort(function (a, b) {
-    var countA = parseInt(a.getElementsByTagName("td")[1].innerHTML);
-    var countB = parseInt(b.getElementsByTagName("td")[1].innerHTML);
+    let countA = parseInt(a.getElementsByTagName("td")[1].innerHTML);
+    let countB = parseInt(b.getElementsByTagName("td")[1].innerHTML);
     if (sort == 0) {
       return countA - countB;
     } else {
@@ -72,11 +129,10 @@ function sortTable(sort = 0) {
     }
   });
 
-  table.innerHTML = ""; // Clear the existing rows from the table
-
-  table.appendChild(header); // Append the header back
+  table.innerHTML = "";
+  table.appendChild(header);
 
   rows.forEach(function (row) {
-    table.appendChild(row); // Append the sorted rows to the table
+    table.appendChild(row);
   });
 }
