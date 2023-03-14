@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1/new.min.css">
+  <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
   <title>AWC NTBK Usage count</title>
 </head>
 
@@ -14,38 +14,51 @@
     <h1>Notebook usage count</h1>
   </header>
 
-  <h1>Model Notebooks</h1>
-  This started logging on 2023.03.13 <br>
-  <table id="count-table">
-    <tr>
-      <th>Notebook</th>
-      <th>Use count (<span id="total">?</span>)</th>
-    </tr>
-  </table>
+  <main>
 
-  <h1>Notebook Features</h1>
-  This started logging on 2023.03.14 <br>
-  Slight discrepancy to the total count, started logging a day late.
+    <h1>Model Notebooks</h1>
+    This started logging on <code>2023.03.13</code><br>
 
-  <h2>Outputs</h2>
-  <table id="feature-count-table">
-    <tr>
-      <th>Feature</th>
-      <th>Use count</th>
-    </tr>
-    <tr>
-      <td>Saving to Google Drive</td>
-      <td id="gdrive-output">?</td>
-    </tr>
-  </table>
+    <table id="count-table">
+      <tr>
+        <th>Notebook</th>
+        <th>Use count (<span id="total">0</span>)</th>
+      </tr>
+    </table>
 
-  <h2>Tunnel</h2>
-  <table id="tunnel-count-table">
-    <tr>
-      <th>Tunnel</th>
-      <th>Use count</th>
-    </tr>
-  </table>
+    <h1>Notebook Features</h1>
+    This started logging on <code>2023.03.14</code><br>
+    Slight discrepancy to the total count, started logging a day late.
+
+    <h2>Outputs</h2>
+    <table id="feature-count-table">
+      <tr>
+        <th>Feature</th>
+        <th>Use count</th>
+      </tr>
+    </table>
+
+    <h2>Temporary file hosts</h2>
+    <table id="temp-host-count-table">
+      <tr>
+        <th>Host</th>
+        <th>Use count</th>
+      </tr>
+    </table>
+
+    <h2>Tunnel</h2>
+    <table id="tunnel-count-table">
+      <tr>
+        <th>Tunnel</th>
+        <th>Use count</th>
+      </tr>
+    </table>
+
+  </main>
+
+  <footer>
+    <p>Some statistics for the <a href="https://github.com/NUROISEA/anime-webui-colab">anime-webui-colab repo</a></p>
+  </footer>
 
   <script src="index.js"></script>
 </body>

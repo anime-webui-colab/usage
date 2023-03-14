@@ -36,86 +36,85 @@ const notebookList = [
   'waifuanything',
 ];
 const featureList = [
-  'gdrive-output'
+  'gdrive-output', 'zip-to-gdrive', 'zip-to-temp-host', 'local-delete-outputs',
 ];
 const tunnelList = [
   'gradio', 'ngrok', 'cloudflared', 'localhostrun', 'remotemoe'
 ];
+const tempFileHostList = [
+  'bashupload.com', 'keep.sh', 'temp.sh', 'transfer.sh'
+];
 
-const countDataTable = document.getElementById("count-table");
-const countFeatureTable = document.getElementById("feature-count-table");
-const countTunnelTable = document.getElementById("tunnel-count-table");
-
-async function getCount(key) {
-  const response = await fetch(`https://api.countapi.xyz/get/${namespace}/${key}`);
-  return response.json();
-}
+const countDataTable = document.getElementById('count-table');
+const countFeatureTable = document.getElementById('feature-count-table');
+const countTunnelTable = document.getElementById('tunnel-count-table');
+const countTempHostTable = document.getElementById('temp-host-count-table');
+const totalSpan = document.getElementById('total');
 
 let total = 0;
 
-notebookList.forEach(value => { 
-  let tr = document.createElement('tr');
-  
-  let tdName = document.createElement('td');
-  tdName.innerHTML = value;
-
-  let tdCount = document.createElement('td');
-  tdCount.innerHTML = "0";
-  tdCount.id = value;
-
-  tr.appendChild(tdName);
-  tr.appendChild(tdCount);
-
-  countDataTable.appendChild(tr);
+/*
+ * Initialize table here
+ */
+notebookList.forEach(value => {
+  insertRows(countDataTable, value);
 });
 
 tunnelList.forEach(value => {
-  let tr = document.createElement('tr');
-
-  let tdName = document.createElement('td');
-  tdName.innerHTML = value;
-
-  let tdCount = document.createElement('td');
-  tdCount.innerHTML = "0";
-  tdCount.id = value;
-
-  tr.appendChild(tdName);
-  tr.appendChild(tdCount);
-
-  countTunnelTable.appendChild(tr);
+  insertRows(countTunnelTable, value);
 });
+
+featureList.forEach(value => {
+  insertRows(countFeatureTable, value);
+});
+
+tempFileHostList.forEach(value => {
+  insertRows(countTempHostTable, value);
+});
+
+/*
+ * Fetch data
+ */
 
 notebookList.forEach(value => {
-  const countSpan = document.getElementById(value);
-  const totalSpan = document.getElementById('total');
-  getCount(value).then(data => {
-    countSpan.innerHTML = data.value || 0;
-    total += data.value;
-    totalSpan.innerHTML = total || 0;
-
-    sortTable(countDataTable,1);
+  fetchDataToDisplay({
+    value: value,
+    tableToSort: countDataTable,
+    totalSpan: totalSpan,
+    sortOrder: 1,
   });
 });
 
 tunnelList.forEach(value => {
-  const countSpan = document.getElementById(value);
-  getCount(`tunnel-${value}`).then(data => {
-    countSpan.innerHTML = data.value || 0;
-    sortTable(countTunnelTable, 1);
+  fetchDataToDisplay({
+    value: value,
+    formattedValue: `tunnel-${value}`,
+    tableToSort: countTunnelTable,
+    sortOrder: 1,
   });
 });
 
-featureList.forEach(value => { 
-  const countSpan = document.getElementById(value);
-  getCount(value).then(data => { 
-    countSpan.innerHTML = data.value || 0;
+featureList.forEach(value => {
+  fetchDataToDisplay({ value: value });
+});
+
+tempFileHostList.forEach(value => {
+  fetchDataToDisplay({
+    value: value,
+    formattedValue: `zip-temp-host-${value}`,
+    tableToSort: countTempHostTable,
+    sortOrder: 1,
   });
 });
 
-// 0 = desc
-// 1 = asc
-// thanks chatgpt lmao
+/*
+ * Functions
+ */
+
 function sortTable(table, sort = 0) {
+  // 0 = desc
+  // 1 = asc
+  // thanks chatgpt lmao
   let rows = Array.from(table.getElementsByTagName("tr"));
   let header = rows.shift();
 
@@ -134,5 +133,50 @@ function sortTable(table, sort = 0) {
 
   rows.forEach(function (row) {
     table.appendChild(row);
+  });
+}
+
+async function getCount(key) {
+  const response = await fetch(`https://api.countapi.xyz/get/${namespace}/${key}`);
+  return response.json();
+}
+
+function insertRows(table, value) {
+  let tr = document.createElement('tr');
+
+  let tdName = document.createElement('td');
+  tdName.innerHTML = value;
+
+  let tdCount = document.createElement('td');
+  tdCount.innerHTML = "?";
+  tdCount.id = value;
+
+  tr.appendChild(tdName);
+  tr.appendChild(tdCount);
+
+  table.appendChild(tr);
+}
+
+function fetchDataToDisplay({
+  value,
+  formattedValue = value,
+  tableToSort = false,
+  sortOrder = 0,
+  totalSpan = false,
+}) {
+  const countSpan = document.getElementById(value);
+
+  getCount(formattedValue).then(data => {
+    countSpan.innerHTML = data.value || 0;
+
+    if (totalSpan) {
+      let currentTotal = parseInt(totalSpan.innerHTML);
+      currentTotal += data.value || 0;
+      totalSpan.innerHTML = currentTotal;
+    }
+
+    if (tableToSort) {
+      sortTable(tableToSort, sortOrder);
+    }
   });
 }
