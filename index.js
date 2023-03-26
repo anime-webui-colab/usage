@@ -44,11 +44,19 @@ const tunnelList = [
 const tempFileHostList = [
   'bashupload.com', 'keep.sh', 'temp.sh', 'transfer.sh'
 ];
+const webuiVersionList = [
+  'stable', 'latest', 'ui-redesign'
+];
+const extensionsVersionList = [
+  'stable', 'latest', 'experimental'
+];
 
 const countDataTable = document.getElementById('count-table');
 const countFeatureTable = document.getElementById('feature-count-table');
 const countTunnelTable = document.getElementById('tunnel-count-table');
 const countTempHostTable = document.getElementById('temp-host-count-table');
+const countWebUIVersionTable = document.getElementById('webui-version-count-table');
+const countExtensionsVersionTable = document.getElementById('extensions-version-count-table');
 const totalSpan = document.getElementById('total');
 
 let total = 0;
@@ -70,6 +78,14 @@ featureList.forEach(value => {
 
 tempFileHostList.forEach(value => {
   insertRows(countTempHostTable, value);
+});
+
+webuiVersionList.forEach(value => {
+  insertRows(countWebUIVersionTable, `webui-version-${value}`, value);
+});
+
+extensionsVersionList.forEach(value => {
+  insertRows(countExtensionsVersionTable, `extensions-version-${value}`, value);
 });
 
 /*
@@ -103,6 +119,24 @@ tempFileHostList.forEach(value => {
     value: value,
     formattedValue: `zip-temp-host-${value}`,
     tableToSort: countTempHostTable,
+    sortOrder: 1,
+  });
+});
+
+webuiVersionList.forEach(value => {
+  fetchDataToDisplay({
+    value: `webui-version-${value}`,
+    formattedValue: `webui-version-${value}`,
+    tableToSort: countWebUIVersionTable,
+    sortOrder: 1,
+  });
+});
+
+extensionsVersionList.forEach(value => {
+  fetchDataToDisplay({
+    value: `extensions-version-${value}`,
+    formattedValue: `extensions-version-${value}`,
+    tableToSort: countExtensionsVersionTable,
     sortOrder: 1,
   });
 });
@@ -141,11 +175,11 @@ async function getCount(key) {
   return response.json();
 }
 
-function insertRows(table, value) {
+function insertRows(table, value, displayText = value) {
   let tr = document.createElement('tr');
 
   let tdName = document.createElement('td');
-  tdName.innerHTML = value;
+  tdName.innerHTML = displayText;
 
   let tdCount = document.createElement('td');
   tdCount.innerHTML = "?";
