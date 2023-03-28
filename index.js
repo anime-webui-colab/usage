@@ -9,6 +9,7 @@ const notebookList = [
   'anything_v3',
   'anything_v4',
   'baka_diffusion',
+  'chameleonai-mix',
   'counterfeit',
   'drbob2142_mix_models',
   'eimis_anime_diffusion',
@@ -22,6 +23,7 @@ const notebookList = [
   'midnight_mixes',
   'misobarisic_playground',
   'mix-pro-v3',
+  'mixing-cauldron',
   'momocha_mix',
   'open_anime_journey',
   'orange_mixs',
@@ -31,6 +33,7 @@ const notebookList = [
   'provide_your_own_models',
   'rasgeath_self_made_sauce',
   'shirayuki_model',
+  'something',
   'soul0000',
   'waifu_diffusion',
   'waifuanything',
@@ -48,7 +51,7 @@ const webuiVersionList = [
   'stable', 'latest', 'ui-redesign'
 ];
 const extensionsVersionList = [
-  'stable', 'latest', 'experimental'
+  'none', 'lite', 'stable', 'latest', 'experimental'
 ];
 
 const countDataTable = document.getElementById('count-table');
