@@ -271,8 +271,6 @@ function suffixGenerator(mode = 'none') {
   return `-${indicator}${year}${identifier}`;
 }
 
-loadTables();
-
 timeSelector.addEventListener('change', event => {
   const value = event.target.value;
 
@@ -294,3 +292,6 @@ timeSelector.addEventListener('change', event => {
   destroyInsertedRows();
   loadTables(suffix[value]);
 });
+
+let changeEvent = new Event('change');
+timeSelector.dispatchEvent(changeEvent);
