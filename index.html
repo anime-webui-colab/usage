@@ -16,8 +16,18 @@
 
   <main>
 
+    <h1>Select date span</h1>
+    <select id="time-span">
+      <option value="all">All</option>
+      <option value="week" selected>This week</option>
+      <option value="month">This month</option>
+    </select>
+
+    <p id="notice">
+      Data from 2023.03.13
+    </p>
+
     <h1>Model Notebooks</h1>
-    This started logging on <code>2023.03.13</code><br>
 
     <table id="count-table">
       <tr>
@@ -27,9 +37,6 @@
     </table>
 
     <h1>Notebook Features</h1>
-    This started logging on <code>2023.03.14</code><br>
-    Slight discrepancy to the total count, started logging a day late.
-
     <h2>Outputs</h2>
     <table id="feature-count-table">
       <tr>
@@ -55,7 +62,6 @@
     </table>
 
     <h2>Web UI Version</h2>
-    Started logging at <code>2023.03.26</code>
     <table id="webui-version-count-table">
       <tr>
         <th>Web UI Version</th>
@@ -64,7 +70,6 @@
     </table>
 
     <h2>Extensions Version</h2>
-    Started logging at <code>2023.03.26</code>
     <table id="extensions-version-count-table">
       <tr>
         <th>Extension Version</th>

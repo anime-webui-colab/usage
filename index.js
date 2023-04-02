@@ -1,3 +1,20 @@
+Date.prototype.getWeekNumber = function () {
+  // https://stackoverflow.com/a/6117889
+  let d = new Date(Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()));
+  let dayNum = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+  let yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  return Math.ceil((((d - yearStart) / 86400000) + 1) / 7)
+};
+
+// this is not march 1, month is 0 indexed
+const MIN_DATE = new Date(Date.UTC(2023, 03, 01));
+const DATE_NOW = new Date();
+const NOW_UTC = new Date(
+  Date.UTC(DATE_NOW.getUTCFullYear(), DATE_NOW.getUTCMonth(), DATE_NOW.getUTCDate())
+);
+const WEEK = 7 * 24 * 60 * 60 * 1000;
+
 const namespace = 'nuroisea-anime-webui-colab';
 
 const notebookList = [
@@ -62,91 +79,93 @@ const countWebUIVersionTable = document.getElementById('webui-version-count-tabl
 const countExtensionsVersionTable = document.getElementById('extensions-version-count-table');
 const totalSpan = document.getElementById('total');
 
+const timeSelector = document.getElementById('time-span');
+
 let total = 0;
 
-/*
- * Initialize table here
- */
-notebookList.forEach(value => {
-  insertRows(countDataTable, value);
-});
+function loadTables(suffix = '') {
+  totalSpan.innerHTML = '0';
+  // this is so cringe
 
-tunnelList.forEach(value => {
-  insertRows(countTunnelTable, value);
-});
-
-featureList.forEach(value => {
-  insertRows(countFeatureTable, value);
-});
-
-tempFileHostList.forEach(value => {
-  insertRows(countTempHostTable, value);
-});
-
-webuiVersionList.forEach(value => {
-  insertRows(countWebUIVersionTable, `webui-version-${value}`, value);
-});
-
-extensionsVersionList.forEach(value => {
-  insertRows(countExtensionsVersionTable, `extensions-version-${value}`, value);
-});
-
-/*
- * Fetch data
- */
-
-notebookList.forEach(value => {
-  fetchDataToDisplay({
-    value: value,
-    tableToSort: countDataTable,
-    totalSpan: totalSpan,
-    sortOrder: 1,
+  // TODO: clean up the suffix thingy
+  notebookList.forEach(value => {
+    insertRows(countDataTable, value + suffix, value);
   });
-});
 
-tunnelList.forEach(value => {
-  fetchDataToDisplay({
-    value: value,
-    formattedValue: `tunnel-${value}`,
-    tableToSort: countTunnelTable,
-    sortOrder: 1,
+  tunnelList.forEach(value => {
+    insertRows(countTunnelTable, value + suffix, value);
   });
-});
 
-featureList.forEach(value => {
-  fetchDataToDisplay({ value: value });
-});
-
-tempFileHostList.forEach(value => {
-  fetchDataToDisplay({
-    value: value,
-    formattedValue: `zip-temp-host-${value}`,
-    tableToSort: countTempHostTable,
-    sortOrder: 1,
+  featureList.forEach(value => {
+    insertRows(countFeatureTable, value + suffix, value);
   });
-});
 
-webuiVersionList.forEach(value => {
-  fetchDataToDisplay({
-    value: `webui-version-${value}`,
-    formattedValue: `webui-version-${value}`,
-    tableToSort: countWebUIVersionTable,
-    sortOrder: 1,
+  tempFileHostList.forEach(value => {
+    insertRows(countTempHostTable, value + suffix, value);
   });
-});
 
-extensionsVersionList.forEach(value => {
-  fetchDataToDisplay({
-    value: `extensions-version-${value}`,
-    formattedValue: `extensions-version-${value}`,
-    tableToSort: countExtensionsVersionTable,
-    sortOrder: 1,
+  webuiVersionList.forEach(value => {
+    insertRows(countWebUIVersionTable, `webui-version-${value}` + suffix, value);
   });
-});
 
-/*
- * Functions
- */
+  extensionsVersionList.forEach(value => {
+    insertRows(countExtensionsVersionTable, `extensions-version-${value}` + suffix, value);
+  });
+
+  /*
+   * Fetch data
+   */
+  notebookList.forEach(value => {
+    fetchDataToDisplay({
+      value: value + suffix,
+      tableToSort: countDataTable,
+      totalSpan: totalSpan,
+      sortOrder: 1,
+    });
+  });
+
+  tunnelList.forEach(value => {
+    fetchDataToDisplay({
+      value: value + suffix,
+      formattedValue: `tunnel-${value}` + suffix,
+      tableToSort: countTunnelTable,
+      sortOrder: 1,
+    });
+  });
+
+  featureList.forEach(value => {
+    fetchDataToDisplay({
+      value: value + suffix
+    });
+  });
+
+  tempFileHostList.forEach(value => {
+    fetchDataToDisplay({
+      value: value + suffix,
+      formattedValue: `zip-temp-host-${value}` + suffix,
+      tableToSort: countTempHostTable,
+      sortOrder: 1,
+    });
+  });
+
+  webuiVersionList.forEach(value => {
+    fetchDataToDisplay({
+      value: `webui-version-${value}` + suffix,
+      formattedValue: `webui-version-${value}` + suffix,
+      tableToSort: countWebUIVersionTable,
+      sortOrder: 1,
+    });
+  });
+
+  extensionsVersionList.forEach(value => {
+    fetchDataToDisplay({
+      value: `extensions-version-${value}` + suffix,
+      formattedValue: `extensions-version-${value}` + suffix,
+      tableToSort: countExtensionsVersionTable,
+      sortOrder: 1,
+    });
+  });
+}
 
 function sortTable(table, sort = 0) {
   // 0 = desc
@@ -180,6 +199,7 @@ async function getCount(key) {
 
 function insertRows(table, value, displayText = value) {
   let tr = document.createElement('tr');
+  tr.classList.add('inserted-row');
 
   let tdName = document.createElement('td');
   tdName.innerHTML = displayText;
@@ -192,6 +212,19 @@ function insertRows(table, value, displayText = value) {
   tr.appendChild(tdCount);
 
   table.appendChild(tr);
+}
+
+function destroyInsertedRows(targetClass = 'inserted-row') {
+  let insertedRows = document.getElementsByClassName(targetClass);
+
+  if (insertedRows.length) {
+    for (const row of insertedRows) {
+      row.parentElement.removeChild(row);
+    }
+
+    destroyInsertedRows(targetClass)
+  }
+
 }
 
 function fetchDataToDisplay({
@@ -217,3 +250,47 @@ function fetchDataToDisplay({
     }
   });
 }
+
+function suffixGenerator(mode = 'none') {
+  let indicator = '';
+  let year = NOW_UTC.getUTCFullYear().toString().substring(2);
+  let identifier = '';
+
+  if (mode === 'none') {
+    return '';
+  }
+
+  if (mode === 'week') {
+    indicator = 'w';
+    identifier = NOW_UTC.getWeekNumber().toString().padStart(2, '0');
+  } else if (mode === 'month') {
+    indicator = 'm';
+    identifier = NOW_UTC.getUTCMonth().toString().padStart(2, '0');
+  }
+
+  return `-${indicator}${year}${identifier}`;
+}
+
+loadTables();
+
+timeSelector.addEventListener('change', event => {
+  const value = event.target.value;
+
+  const suffix = {
+    'all': '',
+    'week': suffixGenerator('week'),
+    'month': suffixGenerator('month'),
+  }
+
+  const noticeText = {
+    'all': 'Data from 2023.03.13',
+    'week': `Data from week #${NOW_UTC.getWeekNumber()} of the year ${NOW_UTC.getUTCFullYear()}`,
+    'month': `Data from month #${NOW_UTC.getUTCMonth()} of the year ${NOW_UTC.getUTCFullYear()}`,
+  }
+
+  let notice = document.getElementById('notice');
+  notice.innerHTML = noticeText[value];
+
+  destroyInsertedRows();
+  loadTables(suffix[value]);
+});
