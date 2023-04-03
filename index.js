@@ -265,7 +265,7 @@ function suffixGenerator(mode = 'none') {
     identifier = NOW_UTC.getWeekNumber().toString().padStart(2, '0');
   } else if (mode === 'month') {
     indicator = 'm';
-    identifier = NOW_UTC.getUTCMonth().toString().padStart(2, '0');
+    identifier = (NOW_UTC.getUTCMonth()+1).toString().padStart(2, '0');
   }
 
   return `-${indicator}${year}${identifier}`;
@@ -283,7 +283,7 @@ timeSelector.addEventListener('change', event => {
   const noticeText = {
     'all': 'Data from 2023.03.13',
     'week': `Data from week #${NOW_UTC.getWeekNumber()} of the year ${NOW_UTC.getUTCFullYear()}`,
-    'month': `Data from month #${NOW_UTC.getUTCMonth()} of the year ${NOW_UTC.getUTCFullYear()}`,
+    'month': `Data from month #${NOW_UTC.getUTCMonth() + 1} of the year ${NOW_UTC.getUTCFullYear()}`,
   }
 
   let notice = document.getElementById('notice');
