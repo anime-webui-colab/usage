@@ -34,6 +34,7 @@ const notebookList = [
   'everything',
   'evt_v3',
   'expmix_line',
+  'grapefruit',
   'hddream_g',
   'hentai_diffusion',
   'ligne_claire_anime_diffusion',
@@ -265,7 +266,7 @@ function suffixGenerator(mode = 'none') {
     identifier = NOW_UTC.getWeekNumber().toString().padStart(2, '0');
   } else if (mode === 'month') {
     indicator = 'm';
-    identifier = (NOW_UTC.getUTCMonth()+1).toString().padStart(2, '0');
+    identifier = (NOW_UTC.getUTCMonth() + 1).toString().padStart(2, '0');
   }
 
   return `-${indicator}${year}${identifier}`;
