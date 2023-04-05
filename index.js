@@ -28,6 +28,7 @@ const notebookList = [
   'baka_diffusion',
   'chameleonai-mix',
   'counterfeit',
+  'dark_sushi_mix',
   'drbob2142_mix_models',
   'eimis_anime_diffusion',
   'elysium_anime',
@@ -53,6 +54,7 @@ const notebookList = [
   'shirayuki_model',
   'something',
   'soul0000',
+  'voxo',
   'waifu_diffusion',
   'waifuanything',
 ];
