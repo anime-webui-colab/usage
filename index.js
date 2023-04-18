@@ -26,6 +26,7 @@ const notebookList = [
   'anything_v3',
   'anything_v4',
   'baka_diffusion',
+  'camelliamix',
   'chameleonai-mix',
   'counterfeit',
   'dark_sushi_mix',
