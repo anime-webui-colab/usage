@@ -74,6 +74,9 @@ const webuiVersionList = [
 const extensionsVersionList = [
   'none', 'lite', 'stable', 'latest', 'experimental'
 ];
+const controlnetVersionList = [
+  'none', 'v1.0', 'v1.0-diff', 't2i', 'v1.1'
+];
 
 const countDataTable = document.getElementById('count-table');
 const countFeatureTable = document.getElementById('feature-count-table');
@@ -81,6 +84,7 @@ const countTunnelTable = document.getElementById('tunnel-count-table');
 const countTempHostTable = document.getElementById('temp-host-count-table');
 const countWebUIVersionTable = document.getElementById('webui-version-count-table');
 const countExtensionsVersionTable = document.getElementById('extensions-version-count-table');
+const countControlNetVersionTable = document.getElementById('controlnet-version-count-table');
 const totalSpan = document.getElementById('total');
 
 const timeSelector = document.getElementById('time-span');
@@ -114,6 +118,10 @@ function loadTables(suffix = '') {
 
   extensionsVersionList.forEach(value => {
     insertRows(countExtensionsVersionTable, `extensions-version-${value}` + suffix, value);
+  });
+
+  controlnetVersionList.forEach(value => {
+    insertRows(countControlNetVersionTable, `controlnet-version-${value}` + suffix, value);
   });
 
   /*
@@ -166,6 +174,15 @@ function loadTables(suffix = '') {
       value: `extensions-version-${value}` + suffix,
       formattedValue: `extensions-version-${value}` + suffix,
       tableToSort: countExtensionsVersionTable,
+      sortOrder: 1,
+    });
+  });
+
+  controlnetVersionList.forEach(value => {
+    fetchDataToDisplay({
+      value: `controlnet-version-${value}` + suffix,
+      formattedValue: `controlnet-version-${value}` + suffix,
+      tableToSort: countControlNetVersionTable,
       sortOrder: 1,
     });
   });
