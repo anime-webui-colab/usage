@@ -9,12 +9,14 @@
   <title>AWC NTBK Usage count</title>
 
   <style>
-    td {
+    td.number {
       text-align: right;
+      font-family: monospace;
     }
 
     th {
       text-align: center;
+      font-family: monospace;
     }
 
     .higher {
@@ -33,54 +35,57 @@
   </header>
 
   <main>
-    <h1>Model Notebooks</h1>
+    <h1>Models</h1>
 
+    <h2>Total</h2>
     <table>
       <tr>
-        <th>Total (overall)</th>
-        <th>Total (today)</th>
-        <th>Total (week)</th>
+        <th>all</th>
+        <th>now</th>
+        <th>week</th>
       </tr>
       <tr>
-        <td id="total-overall">0</td>
-        <td id="total-daily">0</td>
-        <td id="total-weekly">0</td>
+        <td id="total-overall" class="number">0</td>
+        <td id="total-daily" class="number">0</td>
+        <td id="total-weekly" class="number">0</td>
       </tr>
     </table>
 
+    <h2>Previous week</h2>
     <table>
       <tr>
-        <th>-1d</th>
-        <th>-2d</th>
-        <th>-3d</th>
-        <th>-4d</th>
-        <th>-5d</th>
-        <th>-6d</th>
-        <th>-7d</th>
+        <th>1d</th>
+        <th>2d</th>
+        <th>3d</th>
+        <th>4d</th>
+        <th>5d</th>
+        <th>6d</th>
+        <th>7d</th>
       </tr>
       <tr>
-        <td id="week-1d">?</td>
-        <td id="week-2d">?</td>
-        <td id="week-3d">?</td>
-        <td id="week-4d">?</td>
-        <td id="week-5d">?</td>
-        <td id="week-6d">?</td>
-        <td id="week-7d">?</td>
+        <td id="week-1d" class="number">?</td>
+        <td id="week-2d" class="number">?</td>
+        <td id="week-3d" class="number">?</td>
+        <td id="week-4d" class="number">?</td>
+        <td id="week-5d" class="number">?</td>
+        <td id="week-6d" class="number">?</td>
+        <td id="week-7d" class="number">?</td>
       </tr>
     </table>
 
+    <h2>Notebooks</h2>
     <table id="count-table">
       <tr>
         <th>Notebook</th>
-        <th>Total</th>
+        <th>all</th>
         <th>0d</th>
-        <th>-1d</th>
-        <th>-2d</th>
-        <th>-3d</th>
-        <th>-4d</th>
-        <th>-5d</th>
-        <th>-6d</th>
-        <th>-7d</th>
+        <th>1d</th>
+        <th>2d</th>
+        <th>3d</th>
+        <th>4d</th>
+        <th>5d</th>
+        <th>6d</th>
+        <th>7d</th>
       </tr>
     </table>
 
@@ -89,15 +94,15 @@
     <table id="feature-count-table">
       <tr>
         <th>Feature</th>
-        <th>Total</th>
+        <th>all</th>
         <th>0d</th>
-        <th>-1d</th>
-        <th>-2d</th>
-        <th>-3d</th>
-        <th>-4d</th>
-        <th>-5d</th>
-        <th>-6d</th>
-        <th>-7d</th>
+        <th>1d</th>
+        <th>2d</th>
+        <th>3d</th>
+        <th>4d</th>
+        <th>5d</th>
+        <th>6d</th>
+        <th>7d</th>
       </tr>
     </table>
 
@@ -105,15 +110,15 @@
     <table id="temp-host-count-table">
       <tr>
         <th>Host</th>
-        <th>Total</th>
+        <th>all</th>
         <th>0d</th>
-        <th>-1d</th>
-        <th>-2d</th>
-        <th>-3d</th>
-        <th>-4d</th>
-        <th>-5d</th>
-        <th>-6d</th>
-        <th>-7d</th>
+        <th>1d</th>
+        <th>2d</th>
+        <th>3d</th>
+        <th>4d</th>
+        <th>5d</th>
+        <th>6d</th>
+        <th>7d</th>
       </tr>
     </table>
 
@@ -121,15 +126,15 @@
     <table id="tunnel-count-table">
       <tr>
         <th>Tunnel</th>
-        <th>Total</th>
+        <th>all</th>
         <th>0d</th>
-        <th>-1d</th>
-        <th>-2d</th>
-        <th>-3d</th>
-        <th>-4d</th>
-        <th>-5d</th>
-        <th>-6d</th>
-        <th>-7d</th>
+        <th>1d</th>
+        <th>2d</th>
+        <th>3d</th>
+        <th>4d</th>
+        <th>5d</th>
+        <th>6d</th>
+        <th>7d</th>
       </tr>
     </table>
 
@@ -137,15 +142,15 @@
     <table id="webui-version-count-table">
       <tr>
         <th>Version</th>
-        <th>Total</th>
+        <th>all</th>
         <th>0d</th>
-        <th>-1d</th>
-        <th>-2d</th>
-        <th>-3d</th>
-        <th>-4d</th>
-        <th>-5d</th>
-        <th>-6d</th>
-        <th>-7d</th>
+        <th>1d</th>
+        <th>2d</th>
+        <th>3d</th>
+        <th>4d</th>
+        <th>5d</th>
+        <th>6d</th>
+        <th>7d</th>
       </tr>
     </table>
 
@@ -153,31 +158,31 @@
     <table id="extensions-version-count-table">
       <tr>
         <th>Version</th>
-        <th>Total</th>
+        <th>all</th>
         <th>0d</th>
-        <th>-1d</th>
-        <th>-2d</th>
-        <th>-3d</th>
-        <th>-4d</th>
-        <th>-5d</th>
-        <th>-6d</th>
-        <th>-7d</th>
+        <th>1d</th>
+        <th>2d</th>
+        <th>3d</th>
+        <th>4d</th>
+        <th>5d</th>
+        <th>6d</th>
+        <th>7d</th>
       </tr>
     </table>
 
     <h2>ControlNet Version</h2>
     <table id="controlnet-version-count-table">
       <tr>
-        <th>Extension Version</th>
-        <th>Total</th>
+        <th>Version</th>
+        <th>all</th>
         <th>0d</th>
-        <th>-1d</th>
-        <th>-2d</th>
-        <th>-3d</th>
-        <th>-4d</th>
-        <th>-5d</th>
-        <th>-6d</th>
-        <th>-7d</th>
+        <th>1d</th>
+        <th>2d</th>
+        <th>3d</th>
+        <th>4d</th>
+        <th>5d</th>
+        <th>6d</th>
+        <th>7d</th>
       </tr>
     </table>
 

@@ -220,6 +220,7 @@ function insertRows(table, value, displayText = value) {
     let tableCell = document.createElement('td');
     tableCell.innerHTML = "?";
     tableCell.id = `${value}-${suffix}`;
+    tableCell.classList.add('number');
     tr.appendChild(tableCell);
   });
 
