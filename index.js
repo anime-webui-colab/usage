@@ -299,7 +299,7 @@ function fetchDataToDisplay({
 
       week.forEach((data, index) => {
         globalWeeklyTotalArray[index] += data.total;
-        globalWeeklyTotal += 0;
+        globalWeeklyTotal += data.total;
         document.getElementById(`week-${index + 1}d`).innerHTML = data.total;
         document.getElementById(`total-weekly`).innerHTML = globalWeeklyTotal;
       });
