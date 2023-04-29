@@ -273,7 +273,7 @@ function fetchDataToDisplay({
         tableCell.innerHTML = total;
       } else if (suffix == 'today') {
         tableCell.innerHTML = today;
-        cellCompare(tableCell, today, week[0].total);
+        cellCompare(tableCell, today, removeOne(week[0].total));
       } else {
         const dayCount = removeOne(week[weekIterator].total);
         tableCell.innerHTML = dayCount;
@@ -282,7 +282,7 @@ function fetchDataToDisplay({
           cellCompare(
             tableCell,
             dayCount,
-            week[weekIterator + 1].total
+            removeOne(week[weekIterator + 1].total)
           );
         }
 
@@ -298,9 +298,10 @@ function fetchDataToDisplay({
       document.getElementById('total-daily').innerHTML = globalDailyTotal;
 
       week.forEach((data, index) => {
-        globalWeeklyTotalArray[index] += data.total;
-        globalWeeklyTotal += data.total;
-        document.getElementById(`week-${index + 1}d`).innerHTML = data.total;
+        const weekTotal = removeOne(data.total);
+        globalWeeklyTotalArray[index] += weekTotal;
+        globalWeeklyTotal += weekTotal;
+        document.getElementById(`week-${index + 1}d`).innerHTML = globalWeeklyTotalArray[index];
         document.getElementById(`total-weekly`).innerHTML = globalWeeklyTotal;
       });
     }
