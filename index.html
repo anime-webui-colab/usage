@@ -26,6 +26,19 @@
     .lower {
       color: pink;
     }
+
+    table.stats tr td:nth-child(2) {
+      border-left: 1px goldenrod;
+      border-right: 1px goldenrod;
+    }
+
+    table.stats tr:first-child td:nth-child(2) {
+      border-top: 1px goldenrod;
+    }
+
+    table.stats tr:last-child td:nth-child(2) {
+      border-bottom: 1px goldenrod;
+    }
   </style>
 </head>
 
@@ -41,19 +54,8 @@
     <table>
       <tr>
         <th>all</th>
-        <th>now</th>
         <th>week</th>
-      </tr>
-      <tr>
-        <td id="total-overall" class="number">0</td>
-        <td id="total-daily" class="number">0</td>
-        <td id="total-weekly" class="number">0</td>
-      </tr>
-    </table>
-
-    <h2>Previous week</h2>
-    <table>
-      <tr>
+        <th>now</th>
         <th>1d</th>
         <th>2d</th>
         <th>3d</th>
@@ -63,6 +65,9 @@
         <th>7d</th>
       </tr>
       <tr>
+        <td id="total-overall" class="number">?</td>
+        <td id="total-weekly" class="number">?</td>
+        <td id="total-daily" class="number">?</td>
         <td id="week-1d" class="number">?</td>
         <td id="week-2d" class="number">?</td>
         <td id="week-3d" class="number">?</td>
@@ -74,7 +79,7 @@
     </table>
 
     <h2>Notebooks</h2>
-    <table id="count-table">
+    <table id="count-table" class="stats">
       <tr>
         <th>Notebook</th>
         <th>all</th>
@@ -91,7 +96,7 @@
 
     <h1>Notebook Features</h1>
     <h2>Outputs</h2>
-    <table id="feature-count-table">
+    <table id="feature-count-table" class="stats">
       <tr>
         <th>Feature</th>
         <th>all</th>
@@ -107,7 +112,7 @@
     </table>
 
     <h2>Temporary file hosts</h2>
-    <table id="temp-host-count-table">
+    <table id="temp-host-count-table" class="stats">
       <tr>
         <th>Host</th>
         <th>all</th>
@@ -123,7 +128,7 @@
     </table>
 
     <h2>Tunnel</h2>
-    <table id="tunnel-count-table">
+    <table id="tunnel-count-table" class="stats">
       <tr>
         <th>Tunnel</th>
         <th>all</th>
@@ -139,7 +144,7 @@
     </table>
 
     <h2>Web UI Version</h2>
-    <table id="webui-version-count-table">
+    <table id="webui-version-count-table" class="stats">
       <tr>
         <th>Version</th>
         <th>all</th>
