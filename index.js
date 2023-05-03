@@ -1,4 +1,4 @@
-const namespace = 'nuroisea-anime-webui-colab';
+const namespace = 'NUROISEA/anime-webui-colab';
 
 const notebookList = [
   '7th_layer',
@@ -234,16 +234,8 @@ function destroyInsertedRows(targetClass = 'inserted-row') {
     for (const row of insertedRows) {
       row.parentElement.removeChild(row);
     }
-
     destroyInsertedRows(targetClass)
   }
-
-}
-
-function removeOne(value) {
-  if (!value) return value;
-
-  return value - 1;
 }
 
 function cellCompare(tableCell, subject, comparison) {
@@ -261,8 +253,8 @@ function fetchDataToDisplay({
   sortOrder = 0,
 }) {
   getCount(formattedValue).then(data => {
-    const total = removeOne(data.total);
-    const today = removeOne(data.today);
+    const total = data.total;
+    const today = data.today;
     const week = data.dailyResults;
 
     let weekIterator = 0;
@@ -273,16 +265,16 @@ function fetchDataToDisplay({
         tableCell.innerHTML = total;
       } else if (suffix == 'today') {
         tableCell.innerHTML = today;
-        cellCompare(tableCell, today, removeOne(week[0].total));
+        cellCompare(tableCell, today, week[0].total);
       } else {
-        const dayCount = removeOne(week[weekIterator].total);
+        const dayCount = week[weekIterator].total;
         tableCell.innerHTML = dayCount;
 
         if (weekIterator + 1 < 7) {
           cellCompare(
             tableCell,
             dayCount,
-            removeOne(week[weekIterator + 1].total)
+            week[weekIterator + 1].total
           );
         }
 
@@ -298,7 +290,7 @@ function fetchDataToDisplay({
       document.getElementById('total-daily').innerHTML = globalDailyTotal;
 
       week.forEach((data, index) => {
-        const weekTotal = removeOne(data.total);
+        const weekTotal = data.total;
         globalWeeklyTotalArray[index] += weekTotal;
         globalWeeklyTotal += weekTotal;
         document.getElementById(`week-${index + 1}d`).innerHTML = globalWeeklyTotalArray[index];
