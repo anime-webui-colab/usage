@@ -52,7 +52,7 @@ const tempFileHostList = [
   'bashupload.com', 'keep.sh', 'temp.sh', 'transfer.sh'
 ];
 const webuiVersionList = [
-  'stable', 'latest', 'latest-dev', 'ui-redesign'
+  'fallback', 'stable', 'latest', 'latest-dev', 'ui-redesign'
 ];
 const extensionsVersionList = [
   'none', 'lite', 'stable', 'latest', 'experimental'
