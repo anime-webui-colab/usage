@@ -1,4 +1,5 @@
 const namespace = 'NUROISEA/anime-webui-colab';
+const currentTime = Date.now();
 
 const notebookList = [
   '7th_layer',
@@ -85,6 +86,7 @@ let globalTotal = 0;
 let globalDailyTotal = 0;
 let globalWeeklyTotalArray = [0, 0, 0, 0, 0, 0, 0];
 let globalWeeklyTotal = 0;
+let notebookDataLoadedCount = 0;
 
 notebookList.forEach(value => {
   insertRows(countDataTable, value, value);
@@ -213,6 +215,7 @@ function insertRows(table, value, displayText = value) {
   tr.classList.add('inserted-row');
 
   let tdName = document.createElement('td');
+  tdName.id = `cell-${value}`;
   tdName.innerHTML = displayText;
   tr.appendChild(tdName);
 
@@ -296,6 +299,17 @@ function fetchDataToDisplay({
         document.getElementById(`week-${index + 1}d`).innerHTML = globalWeeklyTotalArray[index];
         document.getElementById(`total-weekly`).innerHTML = globalWeeklyTotal;
       });
+
+      notebookDataLoadedCount += 1;
+      document.getElementById('loaded-notebook').innerHTML = notebookDataLoadedCount;
     }
+
+    let tdName = document.getElementById(`cell-${value}`);
+    let statusLink = `https://visitorbadge.io/status?path=${namespace}/${formattedValue}`;
+
+    tdName.innerHTML += `<a href="${statusLink}">↗</a>`
   });
 }
+
+document.getElementById('current-time').innerHTML = new Date(currentTime);
+document.getElementById('notebook-count').innerHTML = notebookList.length;
