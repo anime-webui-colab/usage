@@ -67,11 +67,6 @@ const suffixes = [
   'today',
   '1d',
   '2d',
-  '3d',
-  '4d',
-  '5d',
-  '6d',
-  '7d',
 ];
 
 const countDataTable = document.getElementById('count-table');
@@ -273,7 +268,7 @@ function fetchDataToDisplay({
         const dayCount = week[weekIterator].total;
         tableCell.innerHTML = dayCount;
 
-        if (weekIterator + 1 < 7) {
+        if (weekIterator + 1 < 2) {
           cellCompare(
             tableCell,
             dayCount,
